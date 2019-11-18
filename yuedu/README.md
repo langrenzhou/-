@@ -1,4 +1,4 @@
-# yuedu
+# vue
 
 ## Project setup
 ```
