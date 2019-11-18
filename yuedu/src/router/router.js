@@ -5,7 +5,7 @@ const routes=[
     {
         name:"index",
         path:"/",
-        component:()=>import("../components/index.vue")
+        component:()=>import("../components/index.vue"),
     },
 ]
 const router=new vuerouter({

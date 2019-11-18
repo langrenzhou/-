@@ -1,11 +1,11 @@
 <template>
   <div class="head">
-    <div>
+    <div class="nav">
       <router-link to="/" class="a" v-for="top_s in top" :key="top_s.id">{{top_s.type}}</router-link>
     </div>
   </div>
 </template>
-
+<script src="../../zyl.js"></script>
 <script>
 import axios from "axios"
 export default {
@@ -29,6 +29,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.head{
+  display: flex;
+}
 .a {
   color: black;
   text-decoration: none;
