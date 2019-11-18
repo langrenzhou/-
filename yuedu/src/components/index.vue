@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      t: "这是父组件的数据"
+     
     };
   },
   methods:{
@@ -22,7 +22,4 @@ export default {
 </script>
 
 <style>
-a {
-  list-style: none;
-}
 </style>
