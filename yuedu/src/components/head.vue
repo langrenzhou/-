@@ -9,53 +9,71 @@
     <div class="nav">
       <router-link to="/" class="a" v-for="top_s in top" :key="top_s.id">{{top_s.type}}</router-link>
     </div>
-    <div class="head_right">
-      <span @click="campu_ss">登录</span>
+    <div class="head_right" v-if="login_s">
+      <span @click="campu_ss('登录')">登录</span>
       <span>/</span>
-      <span>注册</span>
+      <span @click="campu_ss('注册')">注册</span>
     </div>
-      <campus v-show="campu_s" @hide="hide"></campus>
+    <div class="head_right" v-else>已经登录</div>
+      <campus v-show="campu_s" @hide="hide" :sho_w="hid_e" @register="register" @login="login"></campus>
   </div>
 </template>
 <script src="../../zyl.js"></script>
 <script>
-import campus from "./campus"
-import axios from "axios"
+import campus from "./campus";
+import axios from "axios";
 export default {
-  components:{
+  name:"head",
+  components: {
     campus
   },
   data() {
     return {
-      top:[],
-      campu_s:false
+      top: [],
+      campu_s: false,
+      hid_e: "",
+      login_s:true
     };
   },
   methods: {
-    // 遮罩层的函数
-    campu_ss(){
-      this.campu_s = true
+    // 登录注册的函数
+    campu_ss(login_hide) {
+      this.campu_s = true;
+      this.hid_e = login_hide;
     },
-    hide(e){
-       this.campu_s = !this.campu_s
+    // 让遮罩层显示的函数
+    hide(e) {
+      this.campu_s = !this.campu_s;
+    },
+    // 点击注册的函数
+    register(e){
+     if(e == "注册成功"){
+       this.campu_s= !this.campu_s
+       
+     }
+    },
+    // 点击登录的函数
+    login(e){
+      if(e == "登录成功"){
+        this.campu_s= !this.campu_s
+        this.login_s= !this.login_s
+      }
     }
   },
-  created(){
-    axios.get("http://localhost:3030/mysql").then((head)=>{
-     this.top=head.data
-    })
+  created() {
+    axios.get("http://localhost:3030/mysql").then(head => {
+      this.top = head.data;
+    });
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.search{
-  border:none;
+.search {
+  border: none;
   width: 0.2rem;
   height: 0.2rem;
 }
-.head{
+.head {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -67,14 +85,14 @@ export default {
   font-size: 0.18rem;
   padding: 0.15rem;
 }
-.nav{
+.nav {
   font-size: 0;
 }
-.head_left{
+.head_left {
   display: flex;
-  align-items: center
+  align-items: center;
 }
-.fn1{
+.fn1 {
   font-size: 0;
   display: block;
   width: 0.04rem;
@@ -83,21 +101,21 @@ export default {
   margin-left: 0.03rem;
   border-radius: 0.08rem;
 }
-.fn1_a{
+.fn1_a {
   height: 0.18rem;
   margin-top: 0.06rem;
 }
-.head_left-font{
+.head_left-font {
   font-size: 0.16rem;
   margin-left: 0.06rem;
 }
-.head_right{
+.head_right {
   height: 100%;
   display: flex;
   font-size: 0.18rem;
   align-items: center;
 }
-.head_right span{
+.head_right span {
   padding: 0.03rem;
 }
 </style>

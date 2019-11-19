@@ -1,6 +1,7 @@
 <template>
   <div id="index">
     <top></top>
+    <div class="big"></div>
   </div>
 </template>
 <script>
@@ -22,4 +23,9 @@ export default {
 </script>
 
 <style>
+.big{
+  width: 2rem;
+  height: 3rem;
+  background-color: red
+}
 </style>
