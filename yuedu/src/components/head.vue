@@ -20,6 +20,7 @@
 </template>
 <script src="../../zyl.js"></script>
 <script>
+import "../css/head.css"
 import campus from "./campus";
 import axios from "axios";
 export default {
@@ -67,55 +68,4 @@ export default {
   }
 };
 </script>
-<style>
-.search {
-  border: none;
-  width: 0.2rem;
-  height: 0.2rem;
-}
-.head {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 1rem;
-}
-.a {
-  color: black;
-  text-decoration: none;
-  font-size: 0.18rem;
-  padding: 0.15rem;
-}
-.nav {
-  font-size: 0;
-}
-.head_left {
-  display: flex;
-  align-items: center;
-}
-.fn1 {
-  font-size: 0;
-  display: block;
-  width: 0.04rem;
-  background-color: #ee5044;
-  height: 0.28rem;
-  margin-left: 0.03rem;
-  border-radius: 0.08rem;
-}
-.fn1_a {
-  height: 0.18rem;
-  margin-top: 0.06rem;
-}
-.head_left-font {
-  font-size: 0.16rem;
-  margin-left: 0.06rem;
-}
-.head_right {
-  height: 100%;
-  display: flex;
-  font-size: 0.18rem;
-  align-items: center;
-}
-.head_right span {
-  padding: 0.03rem;
-}
-</style>
+<style></style>
