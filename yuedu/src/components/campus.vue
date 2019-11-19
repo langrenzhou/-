@@ -2,27 +2,50 @@
   <div class="campus">
     <div class="login">
       <div class="close" @click="hide">X</div>
-      <div class="login_left">
+      <div class="login_left" v-if="login">
+          <p class="login_s">登录</p>
         <div class="name">
           用户名：
-          <input type="text" placeholder="请输入您的用户名" />
+          <input type="text" placeholder="请输入您的用户名"  class="login-ipt_name"/>
           <br />
         </div>
         <div class="psd">
           密码：
-          <input type="password" />
+          <input type="password" class="login-ipt_psd" placeholder="请输入你的密码"/>
         </div>
-        <div>
-          <input type="checkbox" />下次自动登录
+        <div class="checkbo_x">
+          <input type="checkbox" class="check_box" />7天免登录
         </div>
-        <div>登录</div>
+        <div class="login_login">登录</div>
+      </div>
+       <div class="login_left">
+          <p class="login_s">登录</p>
+        <div class="name">
+          用户名：
+          <input type="text" placeholder="请输入您的用户名"  class="login-ipt_name"/>
+          <br />
+        </div>
+        <div class="psd">
+          密码：
+          <input type="password" class="login-ipt_psd" placeholder="请输入你的密码"/>
+        </div>
+        <div class="checkbo_x">
+          <input type="checkbox" class="check_box" />7天免登录
+        </div>
+        <div class="login_login">注册</div>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
+    data(){
+        return {
+             login:false
+        }
+    },
   methods: {
+    //   遮罩层函数
     hide() {
       this.$emit("hide", "hide");
     }
@@ -31,6 +54,9 @@ export default {
 </script>
 
 <style>
+input{
+    border: none;
+}
 .login {
   width: 5.5rem;
   height: 7rem;
@@ -56,8 +82,52 @@ export default {
 .login_left {
   width: 5rem;
   height: 6rem;
-  background-color: red;
-  font-size: 0.2rem;
+  font-size: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  align-items: center;
+}
+.login_s{
+    width: 100%;
+    font-size: 0.4rem;
+}
+.name{
+    font-size: 0.3rem;
+}
+.login-ipt_name{
+    height: 1rem;
+        border: 0.02rem solid
+}
+.psd{
+    font-size: 0.3rem;
+}
+.login-ipt_psd{
+    margin-left: 0.24rem;
+    height: 1rem;
+        border: 0.02rem solid
+}
+.checkbo_x{
+    width: 4rem;
+    font-size: 0.3rem;
+    display: flex;
+    align-items: center;
+}
+.check_box{
+      width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.5rem;
+}
+.login_login{
+    width: 4.5rem;
+    height: 0.8rem;
+    background-color: #eb4235;
+    color: white;
+    font-size: 0.4rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    line-height: 0.8rem;
+    cursor: pointer;
 }
 .campus {
   position: fixed;
