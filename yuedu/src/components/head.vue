@@ -34,7 +34,7 @@ export default {
       campu_s: false,
       hid_e: "",
       login_s:true
-    };
+    }
   },
   methods: {
     // 登录注册的函数
