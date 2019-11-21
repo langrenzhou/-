@@ -1,12 +1,15 @@
 <template>
-   <minus></minus>
+      <top></top>
 </template>
-<script src="zyl.js"></script>
 <script>
-import minus from "./components/minu_s"
+import top from "@/components/head_s"
+import shipei from "./zyl.js"
 export default {
   components:{
-    minus
+    top
+  },
+  created(){
+    shipei()
   }
 }
 </script>

@@ -1,4 +1,4 @@
-(function () {
+var asd= function(){
     var timer
     function zyl() {
         var html = document.documentElement;
@@ -12,4 +12,5 @@
             zyl()
         }, 100)
     }
-})()
+}
+export default asd

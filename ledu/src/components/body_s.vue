@@ -1,14 +1,12 @@
 <template>
   <div class="body">
+ 
       <div class="body_area">
         <div class="body_area-left">
           <ul>
-            <li class="body_area-left-li" v-for="num in content" :key="num.id">
+            <router-link :to="'/details?id='+num.id" tag="li" class="body_area-left-li" v-for="num in content" :key="num.id">
               <div class="body_area-left-li_image">
-                <router-link to="/details">
                   <img src="../01.jpg" alt />
-                </router-link>
-                <router-view></router-view>
               </div>
               <div class="body_area-left-li_brief">
                 <p>{{num.title}}</p>
@@ -20,7 +18,7 @@
                 </p>
                 <div class="body_area-left-li_brief-content" escape="false">{{num.content}}</div>
               </div>
-            </li>
+            </router-link>
           </ul>
         </div>
         <div class="body_area-right"></div>
@@ -28,14 +26,18 @@
       <div class="page">
         <span v-for="(num,index) in length " :key="index" @click="page_s(num)">{{num}}</span>
       </div>
+        <router-view></router-view>
     </div>
 </template>
-<script src="zyl.js"></script>
 <script>
 import axios from "axios";
 export default {
   name: "body_s",
+  components:{
+ 
+  },
   created() {
+    console.log(this.$route)
     axios
       .get(`http://localhost:3030/content_page?type_id=${this.type_id}`)
       .then(e => {

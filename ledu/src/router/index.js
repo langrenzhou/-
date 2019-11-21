@@ -9,14 +9,9 @@ const routes = [
     component: ()=>import("@/components/body_s")
   },
   {
-    path: '/a',
+    path: '/details',
     name: 'b',
-    component: ()=>import("@/components/b")
-  },
-  {
-    path: '/b',
-    name: 'a',
-    component: ()=>import("@/components/b")
+    component: ()=>import("@/components/details")
   }
 ]
 
