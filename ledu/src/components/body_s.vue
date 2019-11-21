@@ -1,6 +1,5 @@
 <template>
   <div class="body">
- 
       <div class="body_area">
         <div class="body_area-left">
           <ul>
