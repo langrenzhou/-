@@ -1,38 +1,38 @@
 <template>
   <div id="index">
-    <top></top>
+    <top @a="a"></top>
     <div class="body">
       <div class="body_area">
         <div class="body_area-left">
           <ul>
             <li class="body_area-left-li" v-for="num in content" :key="num.id">
               <div class="body_area-left-li_image">
-                <img src="../../01.jpg" alt="">
+                <img src="../../01.jpg" alt />
               </div>
               <div class="body_area-left-li_brief">
                 <p>{{num.title}}</p>
                 <p class="body_area-left-li_brief-author">
-                  <span>{{num.author}}</span>
-                  <span>{{num.podcast}}</span>
-                  <span>{{num.duration}}</span>
+                  <span>{{num.author}}</span>&nbsp;&nbsp;
+                  <span>{{num.podcast}}</span>&nbsp;&nbsp;
+                  <span>{{num.duration}}</span>&nbsp;&nbsp;
                   <span>{{num.play_time}}次</span>
                 </p>
-                <div class="body_area-left-li_brief-content" escape="false">
-                  {{num.content}}
-                </div>
+                <div class="body_area-left-li_brief-content" escape="false">{{num.content}}</div>
               </div>
             </li>
           </ul>
         </div>
-        <div class="body_area-right">
-        </div>
+        <div class="body_area-right"></div>
       </div>
+        <div class="page">
+            <span v-for="(num,index) in length " :key="index" @click="page_s(num)">{{num}}</span>
+          </div>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-import top from "./head";
+import top from "./head_s";
 export default {
   name: "index",
   components: {
@@ -50,14 +50,31 @@ export default {
   data() {
     return {
       length: 0,
-      content: []
+      content: [],
+      page:1
     };
   },
-  methods: {}
+  methods: {
+    a(a) {
+      axios.get(`http://localhost:3030/content_page?type_id=${a}`).then(e => {
+        this.length = e.data.length;
+      });
+      axios.get(`http://localhost:3030/content?type_id=${a}&page=${this.page}`).then(e => {
+        this.content = e.data;
+      });
+    },
+    page_s(e){
+      console.log(e)
+      this.page=e
+    }
+  }
 };
 </script>
 
 <style>
+.page span{
+border: 0.02rem solid red;
+}
 img {
   width: 100%;
   height: 100%;
@@ -65,7 +82,7 @@ img {
 .body {
   width: 100%;
   /* height: 3rem; */
-  /* background-color: red; */
+  background-color: rgb(245, 245, 245);
 }
 .body_area {
   width: 7rem;
@@ -73,7 +90,7 @@ img {
   margin: 0 auto;
   /* background-color: blue; */
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
 }
 .body_area-left {
   width: 4rem;
@@ -84,30 +101,34 @@ img {
   height: 4rem;
   background-color: orange;
 }
-.body_area-left-li{
+.body_area-left-li {
   width: 100%;
   height: 1.5rem;
-  background-color: aqua;
-    font-size: 0;
-    display: flex;
-    margin-bottom: 0.2rem;
-    overflow: hidden;
+  /* background-color: aqua; */
+  font-size: 0;
+  display: flex;
+  margin-bottom: 0.2rem;
+  overflow: hidden;
 }
-.body_area-left-li_image{
+.body_area-left-li_image {
   width: 1.5rem;
   height: 1.5rem;
 }
-.body_area-left-li_brief{
+.body_area-left-li_brief {
   width: 2.5rem;
   height: 1.5rem;
-  background-color: red;
+  background-color: white;
   font-size: 0.18rem;
-  padding: 0.3rem;
+  padding: 0.1rem;
 }
-.body_area-left-li_brief-author{
+.body_area-left-li_brief-author {
   font-size: 0.12rem;
 }
-.body_area-left-li_brief-content{
+.body_area-left-li_brief-content {
   font-size: 0.14rem;
+  width: 2.2rem;
+  height: 0.7rem;
+  /* background-color: pink; */
+  overflow: hidden;
 }
 </style>

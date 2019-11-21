@@ -7,7 +7,7 @@
       <span class="head_left-font">悦读 FM</span>
     </div>
     <div class="nav">
-      <router-link to="/" class="a" v-for="top_s in top" :key="top_s.id">{{top_s.type}}</router-link>
+      <a @click="a(top_s.id)" class="a" v-for="top_s in top" :key="top_s.id">{{top_s.type}}</a>
     </div>
     <div class="head_right" v-if="login_s">
       <span @click="campu_ss('登录')">登录</span>
@@ -24,7 +24,7 @@ import "../css/head.css"
 import campus from "./campus";
 import axios from "axios";
 export default {
-  name:"head",
+  name:"head_s",
   components: {
     campus
   },
@@ -50,7 +50,6 @@ export default {
     register(e){
      if(e == "注册成功"){
        this.campu_s= !this.campu_s
-       
      }
     },
     // 点击登录的函数
@@ -59,6 +58,10 @@ export default {
         this.campu_s= !this.campu_s
         this.login_s= !this.login_s
       }
+    },
+    // 点击标题的函数
+    a(e){
+      this.$emit("a",e)
     }
   },
   created() {
