@@ -20,7 +20,6 @@
 <script src="../../zyl.js"></script>
 <script>
 import "../css/head.css"
-
 export default {
   name:"head_s",
   components: {

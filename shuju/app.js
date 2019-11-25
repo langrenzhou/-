@@ -87,6 +87,8 @@ app.all("/content", function (req, res) {
     res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
     var type_ids=parseInt(req.query.type_id);
     var page=(parseInt(req.query.page)-1)*10
+    console.log(req.query.page)
+    console.log(req.query.type_id)
     console.log(req.query)
     var sql = `select * from t_articles where type_id=${type_ids} limit ${page},10;`
     lianjie.query(sql, function (err, result) {

@@ -13,7 +13,7 @@
                   <span>{{num.duration}}</span>&nbsp;&nbsp;
                   <span>{{num.play_time}}次</span>
                 </p>
-                <div class="body_area-left-li_brief-content" escape="false">{{num.content.slice(0,20)}}</div>
+                <div class="body_area-left-li_brief-content" escape="false">{{num.content}}</div>
               </div>
             </router-link>
           </ul>
@@ -24,6 +24,8 @@
 export default {
   props:{
       content:Array,
+  },
+  created(){
   }
 }
 </script>

@@ -19,7 +19,7 @@ const routes = [
         component:()=>import("@/components/details_s")
       },
       {
-        path:"about",
+        path:"user",
         component:()=>import("@/components/about")
       },
       {
@@ -27,6 +27,11 @@ const routes = [
         component:()=>import("@/components/join")
       }
     ]
+  },
+  {
+    name:"user",
+    path:"/user/:id",
+    component:()=>import("@/components/user")
   }
 ]
 
