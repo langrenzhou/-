@@ -14,6 +14,7 @@
   </div>
 </template>
 <script>
+
 import "../css/body_s.css";
 import lis from "./channle_li";
 import axios from "axios";

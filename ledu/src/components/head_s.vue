@@ -15,15 +15,17 @@
       <span @click="campu_ss('注册')">注册</span>
     </div>
     <div class="head_right" v-else>已经登录</div>
+        <campus  v-show="campu_s" @hide="hide" :sho_w="hid_e" @register="register" @login="login"></campus>
   </div>
 </template>
 <script src="../../zyl.js"></script>
 <script>
+import campus from "./campus"
 import "../css/head.css"
 export default {
   name:"head_s",
   components: {
-   
+   campus
   },
   props:{
     top:Array

@@ -65,6 +65,7 @@ export default {
     // 登录注册的函数
     register_login(d){
      if(d == "登录"){
+       console.log("这个点击的时登录")
          axios.post("http://localhost:3030/login",{
             name:this.user_name,
             psd:this.user_psd
@@ -75,7 +76,7 @@ export default {
                  this.psd="";
              }else{
                  alert("登录成功")
-                 this.$emit("login","登录成功")
+                this.$emit("login","登录成功")
                 this.name="";
                 this.psd="";
              }
@@ -83,7 +84,16 @@ export default {
      }else if(d == "注册"){
          if(this.user_name == this.user_psd){
              alert("用户名与密码请勿一致")
+         }else{
+           axios.post("http://localhost:3030/register",{
+             name:this.user_name,
+             psd:this.user_psd,
+             email:this.uer_email
+           }).then(res=>{
+             console.log(res)
+           })
          }
+
          
         
      }

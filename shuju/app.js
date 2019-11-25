@@ -29,7 +29,9 @@ app.all("/register", function (req, res) {
     res.header("Access-Control-Allow-Origin", "*"); //设置允许跨域的域名，*代表允许任意域名跨域
     res.header("Access-Control-Allow-Headers", "content-type"); //允许的header类型
     res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
+    console.log("这是regist")
     req.on("data", (ds) => {
+        console.log("注册时监听到了")
         var data_register = "";
         var data_rigt_one = JSON.parse(data_register += ds);
         // 先进行查询再进行注册
@@ -53,18 +55,19 @@ app.all("/login", function (req, res) {
     res.header("Access-Control-Allow-Origin", "*"); //设置允许跨域的域名，*代表允许任意域名跨域
     res.header("Access-Control-Allow-Headers", "content-type"); //允许的header类型
     res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
+    console.log("这是login")
     req.on("data", (sd) => {
+        console.log("登录时监听到了")
         var data_login = ""
         var data_lign_one = JSON.parse(data_login += sd)
-        var login_mysql = `select * from t_users where username='${data_lign_one.name}' and password='${data_lign_one.psd}'`;
+        var login_mysql = `select * from t_users where username='钟宇' and password='2131321'`;
         lianjie.query(login_mysql, function (err, result) {
             res.send(result)
             res.end(err)
         })
-
     })
 })
-//做内容内容接口
+//做内容页数接口
 app.all("/content_page", function (req, res) {
     res.header("Access-Control-Allow-Origin", "*"); //设置允许跨域的域名，*代表允许任意域名跨域
     res.header("Access-Control-Allow-Headers", "content-type"); //允许的header类型
@@ -87,9 +90,6 @@ app.all("/content", function (req, res) {
     res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
     var type_ids=parseInt(req.query.type_id);
     var page=(parseInt(req.query.page)-1)*10
-    console.log(req.query.page)
-    console.log(req.query.type_id)
-    console.log(req.query)
     var sql = `select * from t_articles where type_id=${type_ids} limit ${page},10;`
     lianjie.query(sql, function (err, result) {
         if (err) {
@@ -100,24 +100,16 @@ app.all("/content", function (req, res) {
         }
     })
 })
+// 详情页的接口
 app.all("/details", function (req, res) {
     res.header("Access-Control-Allow-Origin", "*"); //设置允许跨域的域名，*代表允许任意域名跨域
     res.header("Access-Control-Allow-Headers", "content-type"); //允许的header类型
     res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
-    // res.send("!@#")
-    // res.end("132")
-    // req.on("data", (sd) => {
-        // console.log(sd)
-        // console.log("123")
-        // var details= ""
-        // var id= JSON.parse(details += sd)
-        // console.log(id)
         var id=req.query.id
         var login_mysql = `select * from t_articles where id=${id}`;
         lianjie.query(login_mysql, function (err, result) {
             res.send(result)
             res.end(err)
-        // })
     })
 })
 app.listen("3030", function () {
