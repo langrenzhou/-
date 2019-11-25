@@ -1,90 +1,53 @@
 <template>
   <div class="body">
-      <div class="body_area">
-        <div class="body_area-left">
-          <ul>
-            <router-link :to="'/details?id='+num.id" tag="li" class="body_area-left-li" v-for="num in content" :key="num.id">
-              <div class="body_area-left-li_image">
-                  <img src="../01.jpg" alt />
-              </div>
-              <div class="body_area-left-li_brief">
-                <p>{{num.title}}</p>
-                <p class="body_area-left-li_brief-author">
-                  <span>{{num.author}}</span>&nbsp;&nbsp;
-                  <span>{{num.podcast}}</span>&nbsp;&nbsp;
-                  <span>{{num.duration}}</span>&nbsp;&nbsp;
-                  <span>{{num.play_time}}次</span>
-                </p>
-                <div class="body_area-left-li_brief-content" escape="false">{{num.content}}</div>
-              </div>
-            </router-link>
-          </ul>
-        </div>
-        <div class="body_area-right"></div>
+    <div class="body_area">
+      <div class="body_area-left">
+        <lis :content="content"></lis>
       </div>
-      <div class="page">
-        <span v-for="(num,index) in length " :key="index" @click="page_s(num)">{{num}}</span>
-      </div>
-        <router-view></router-view>
+      <div class="body_area-right"></div>
     </div>
+    <div class="page">
+      <span v-for="(num,index) in length " :key="index" @click="page_s(num)">{{num}}</span>
+    </div>
+  </div>
 </template>
 <script>
+import lis from "./channle_li";
 import axios from "axios";
 export default {
   name: "body_s",
-  components:{
- 
+  components: {
+    lis
   },
   created() {
-    console.log(this.$route)
-    axios
-      .get(`http://localhost:3030/content_page?type_id=${this.type_id}`)
-      .then(e => {
-        this.length = parseInt(e.data.length / 10);
-      });
-    axios
-      .get(`http://localhost:3030/content?type_id=${this.type_id}&page=1`)
-      .then(e => {
-        this.content = e.data;
-      });
+    this.axios_content();
   },
   data() {
     return {
       length: 0,
       content: [],
       page: 1,
-      type_id: 1
     };
   },
   methods: {
-    a(a) {
-      axios.get(`http://localhost:3030/content_page?type_id=${a}`).then(e => {
-        this.length = parseInt(e.data.length / 10);
-      });
+    // 请求内容的
+    axios_content() {
+      const id = this.$route.params.id;
       axios
-        .get(`http://localhost:3030/content?type_id=${a}&page=${this.page}`)
+        .get(`http://localhost:3030/content?type_id=${id}&page=1`)
         .then(e => {
           this.content = e.data;
         });
-    },
-    page_s(e) {
-      var hash_s = location.hash.split("/");
-      if (hash_s[1] == "") {
-        this.type_id = 1;
-      } else {
-        this.type_id = hash_s[1];
-      }
+          // 请求页数的
       axios
-        .get(`http://localhost:3030/content_page?type_id=${this.type_id}`)
+        .get(`http://localhost:3030/content_page?type_id=${id}`)
         .then(e => {
           this.length = parseInt(e.data.length / 10);
         });
-      axios
-        .get(`http://localhost:3030/content?type_id=${this.type_id}&page=${e}`)
-        .then(e => {
-          this.content = e.data;
-        });
     }
+  },
+  watch: {
+    $route: "axios_content"
   }
 };
 </script>
