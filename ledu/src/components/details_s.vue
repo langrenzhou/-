@@ -45,8 +45,11 @@ export default {
         this.details = as.data;
         if (this.details[0].content.length > 150) {
           this.hit = true;
+          console.log("大于150了")
         } else {
+          console.log("小于150了")
           this.hit = false;
+          this.play=""
         }
       });
   },

@@ -1,6 +1,3 @@
-.page span {
-  border: 0.02rem solid red;
-}
 img {
   width: 100%;
   height: 100%;
@@ -56,4 +53,23 @@ img {
   height: 0.7rem;
   /* background-color: pink; */
   overflow: hidden;
+}
+.page{
+  width: 100%;
+  display: flex;
+  font-size: 0.2rem;
+  justify-content: center;
+}
+.page_color{
+  color: red;
+}
+.page_width{
+  width: 1.6rem;
+  line-height: 0.3rem;
+  overflow: hidden;
+  text-align: center;
+  /* background-color: red; */
+}
+.join_my{
+  font-size: 0.3rem;
 }

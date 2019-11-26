@@ -7,14 +7,23 @@
       <div class="body_area-right"></div>
     </div>
     <div class="page">
-      上一页
-      <span v-for="(num,index) in length " :key="index" @click="page_s(num)">{{num}}</span>
-      下一页
+      <div @click="page_up('上一页')" class="page_up" v-if="pages">上一页</div>
+      <div class="page_width">
+        <span v-for="(num,index) in length" :key="index" :class="{page_color:num == page?true:false}" @click="page_s(num)">{{num}}</span>
+      </div>
+      <div @click="page_up('下一页')" class="page_up" v-if="next">下一页</div>
+    </div>
+    <div class="join_my">
+      <router-link to="/join">
+        加入我们
+      </router-link>
+      <router-link to="/about">
+        关于我们
+      </router-link>
     </div>
   </div>
 </template>
 <script>
-
 import "../css/body_s.css";
 import lis from "./channle_li";
 import axios from "axios";
@@ -30,7 +39,9 @@ export default {
     return {
       length: 0,
       content: [],
-      page: 1
+      page: 1,
+      pages: true,
+      next: true
     };
   },
   methods: {
@@ -41,7 +52,6 @@ export default {
       } else {
         this.page = e;
       }
-
       const id = this.$route.params.id;
       // 请求内容的
       axios
@@ -49,20 +59,47 @@ export default {
         .then(res => {
           this.content = res.data;
         });
+      // 请求页数的
       axios
         .get(`http://localhost:3030/content_page?type_id=${id}`)
         .then(res => {
-          var aaa=res.data.length%10;
+          var aaa = res.data.length % 10;
           if (aaa === 0) {
-            this.length=parseInt(res.data.length/10);
+            this.length = parseInt(res.data.length / 10);
           } else {
-            this.length=parseInt(res.data.length/10)+1;
+            this.length = parseInt(res.data.length / 10) + 1;
           }
         });
+      // 判断页数显示上一页的
+      if (this.page == 1) {
+        this.pages = false;
+      } else {
+        this.pages = true;
+      }
+      // 判断页数显示下一页
+      if (this.page == this.length) {
+        this.next = false;
+      } else {
+        this.next = true;
+      }
     },
     // 点击页数请求内容的函数
     page_s(e) {
       this.axios_content(e);
+    },
+    // 点击上一页和下一页时调用的函数
+    page_up(e) {
+      if (e == "上一页") {
+        if (this.page == 1) {
+          alert("没有上一页了");
+        } else {
+          this.page--;
+          this.axios_content(this.page);
+        }
+      } else {
+        this.page++;
+        this.axios_content(this.page);
+      }
     }
   },
   watch: {

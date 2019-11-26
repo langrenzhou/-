@@ -2,7 +2,7 @@
   <div class="campus">
     <div class="login">
       <div class="close" @click="hide">X</div>
-            <!-- 这个是登录 -->
+      <!-- 这个是登录 -->
       <div class="login_left" v-if="login">
         <p class="login_s">登录</p>
         <div class="name">
@@ -43,19 +43,20 @@
   </div>
 </template> 
 <script>
-import '../css/campus.css'
-import axios from "axios"
+import "../css/campus.css";
+import axios from "axios";
+import qs from "qs";
 export default {
-  name:"campus",
+  name: "campus",
   props: ["sho_w"],
   data() {
     return {
       login: false,
       asd: "",
-      user_name:"",
-      user_psd:"",
-      user_email:""
-    }
+      user_name: "",
+      user_psd: "",
+      user_email: ""
+    };
   },
   methods: {
     //   遮罩层函数
@@ -63,40 +64,55 @@ export default {
       this.$emit("hide", "hide");
     },
     // 登录注册的函数
-    register_login(d){
-     if(d == "登录"){
-       console.log("这个点击的时登录")
-         axios.post("http://localhost:3030/login",{
-            name:this.user_name,
-            psd:this.user_psd
-         }).then((as)=>{
-             if(as.data == 0){
-                 alert("用户名或密码错误")
-                 this.name="";
-                 this.psd="";
-             }else{
-                 alert("登录成功")
-                this.$emit("login","登录成功")
-                this.name="";
-                this.psd="";
-             }
-         })
-     }else if(d == "注册"){
-         if(this.user_name == this.user_psd){
-             alert("用户名与密码请勿一致")
-         }else{
-           axios.post("http://localhost:3030/register",{
-             name:this.user_name,
-             psd:this.user_psd,
-             email:this.uer_email
-           }).then(res=>{
-             console.log(res)
-           })
-         }
-
-         
-        
-     }
+    register_login(d) {
+      if (d == "登录") {
+        axios
+          .post(
+            "http://localhost:3030/login",
+            qs.stringify({
+              name: this.user_name,
+              psd: this.user_psd
+            })
+          )
+          .then(as => {
+            if (as.data == 0) {
+              alert("用户名或密码错误");
+              this.name = "";
+              this.psd = "";
+            } else {
+              alert("登录成功");
+              this.$emit("login", "登录成功");
+              this.name = "";
+              this.psd = "";
+              this.$emit("hide", "hide");
+            }
+          });
+      } else if (d == "注册") {
+        if (this.user_name == this.user_psd) {
+          alert("用户名与密码请勿一致");
+        } else {
+          axios
+            .post(
+              "http://localhost:3030/register",
+              qs.stringify({
+                name: this.user_name,
+                psd: this.user_psd,
+                email: this.user_email
+              })
+            )
+            .then(res => {
+              if (res.data == "该用户名已被注册") {
+                alert(res.data);
+              } else {
+                alert("注册成功");
+                this.name = "";
+                this.psd = "";
+                this.emails = "";
+                this.$emit("hide", "hide");
+              }
+            });
+        }
+      }
     }
   },
   watch: {

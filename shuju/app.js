@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 var express = require("express");
 var fs = require("fs");
+var bodyparser=require("body-parser");
 var app = express()
 var lianjie = mysql.createConnection({
     host: 'localhost',
@@ -24,23 +25,25 @@ app.all("/mysql", function (req, res) {
         }
     })
 })
+app.use(bodyparser.urlencoded({extended:true}))
 // 注册信息
 app.all("/register", function (req, res) {
     res.header("Access-Control-Allow-Origin", "*"); //设置允许跨域的域名，*代表允许任意域名跨域
     res.header("Access-Control-Allow-Headers", "content-type"); //允许的header类型
     res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
     console.log("这是regist")
-    req.on("data", (ds) => {
-        console.log("注册时监听到了")
-        var data_register = "";
-        var data_rigt_one = JSON.parse(data_register += ds);
+    console.log(req.body)
+    // req.on("data", (ds) => {
+    //     console.log("注册时监听到了")
+    //     var data_register = "";
+    //     var data_rigt_one = JSON.parse(data_register += ds);
         // 先进行查询再进行注册
-        var register_s_eql = `select * from t_users where username="${data_rigt_one.name}" and password="${data_rigt_one.psd}" and email="${data_rigt_one.email}";`
+        var register_s_eql = `select * from t_users where username="${req.body.name}" and password="${req.body.psd}" and email="${req.body.email}";`
         lianjie.query(register_s_eql, function (err, result) {
             if (result.length > 0) {
                 res.send('该用户名已被注册')
             } else {
-                var regi_sql = `insert into t_users set username="${data_rigt_one.name}",password="${data_rigt_one.psd}",email="${data_rigt_one.email}",nikiname="${data_rigt_one.name}";`
+                var regi_sql = `insert into t_users set username="${req.body.name}",password="${req.body.psd}",email="${req.body.email}",nikiname="${req.body.name}";`
                 lianjie.query(regi_sql, function (err, result) {
                     res.send(result);
                     res.end(err)
@@ -48,24 +51,25 @@ app.all("/register", function (req, res) {
             }
 
         })
-    })
+    // })
 })
 // 登录信息
 app.all("/login", function (req, res) {
     res.header("Access-Control-Allow-Origin", "*"); //设置允许跨域的域名，*代表允许任意域名跨域
     res.header("Access-Control-Allow-Headers", "content-type"); //允许的header类型
     res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
-    console.log("这是login")
-    req.on("data", (sd) => {
-        console.log("登录时监听到了")
-        var data_login = ""
-        var data_lign_one = JSON.parse(data_login += sd)
-        var login_mysql = `select * from t_users where username='钟宇' and password='2131321'`;
+    // req.on("data", (sd) => {
+        // sd就是传递过来的参数
+    //     console.log("登录时监听到了")
+        // var data_login = ""
+        // var data_lign_one = JSON.parse(data_login += sd)
+        // 可以使用req.on去监听data事件来获取post请求的参数也可以用req.body获取请求的参数
+        var login_mysql = `select * from t_users where username='${req.body.name}' and password='${req.body.psd}'`;
         lianjie.query(login_mysql, function (err, result) {
             res.send(result)
             res.end(err)
         })
-    })
+    // })
 })
 //做内容页数接口
 app.all("/content_page", function (req, res) {
