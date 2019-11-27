@@ -19,7 +19,7 @@ const routes = [
         component:()=>import("@/components/details_s")
       },
       {
-        path:"user",
+        path:"about",
         component:()=>import("@/components/about")
       },
       {

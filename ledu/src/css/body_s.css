@@ -21,7 +21,7 @@ img {
 }
 .body_area-right {
   width: 2.5rem;
-  height: 4rem;
+  /* height: 4rem; */
   background-color: orange;
 }
 .body_area-left-li {
@@ -63,12 +63,15 @@ img {
 .page_color{
   color: red;
 }
+/* .page_left{
+  background-color: aqua;
+} */
 .page_width{
   width: 1.6rem;
   line-height: 0.3rem;
   overflow: hidden;
   text-align: center;
-  /* background-color: red; */
+  position: relative;
 }
 .join_my{
   font-size: 0.3rem;

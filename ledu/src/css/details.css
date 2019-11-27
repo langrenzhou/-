@@ -6,7 +6,7 @@ img {
   width: 100%;
 }
 .details_big {
-  background-color: rgb(112, 112, 112);
+  background-color: rgb(245, 245, 245);
 }
 .details {
   width: 7.2rem;
@@ -74,7 +74,7 @@ img {
 }
 .details_conten-area_play {
   font-size: 0.2rem;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(245, 245, 245);
   color: red;
   line-height: 0.2rem;
   margin-left: 2.9rem;
